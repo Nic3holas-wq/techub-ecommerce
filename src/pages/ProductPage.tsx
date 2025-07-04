@@ -4,7 +4,9 @@ import axios from 'axios';
 import type { Product } from '../types/Product';
 import { useRecentlyViewed } from '../context/RecentlyViewedProvider';
 import StarRating from '../components/StarRating';
-
+import {motion} from 'framer-motion'
+import toast from 'react-hot-toast';
+import { useCart } from "../context/CartContext";
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
@@ -12,7 +14,7 @@ const ProductPage: React.FC = () => {
   const { addToRecentlyViewed } = useRecentlyViewed();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
+  const { addToCart } = useCart();
 const handleTouchStart = (e: React.TouchEvent) => {
   setTouchStartX(e.touches[0].clientX);
 };
@@ -140,9 +142,25 @@ const handleTouchEnd = (e: React.TouchEvent) => {
           <StarRating rating={product.rating} />
           <p className="text-sm text-green-700">{product.availabilityStatus}</p>
           <div className='text-center'>
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+          <motion.button
+          whileTap={{ scale: 0.95 }}
+          whileHover={{
+            scale: 1.5,
+            backgroundColor: "#d1d5db",
+            color: "black"
+          }}
+          transition={{ bounceDamping: 10, bounceStiffness: 400 }}
+          onClick={() => {addToCart({
+            id: product.id,
+            name: product.title,
+            price: product.price,
+            image: product.images[0]
+          })
+          toast.success(`${product.title} added to cart`);
+          }}
+          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
             Add to Cart
-          </button>
+          </motion.button>
           </div>
           
         </div>
