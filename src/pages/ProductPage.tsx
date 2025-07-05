@@ -66,7 +66,7 @@ const handleTouchEnd = (e: React.TouchEvent) => {
   if (!product) return <p className="p-4 text-red-500">Product not found.</p>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 mt-18 xl:mt-25">
+    <div className="max-w-6xl mx-auto p-6 mt-25 xl:mt-25">
       {/* Top Section: Image + Info */}
       <div className="grid md:grid-cols-2 gap-8">
         {/* Product Image Carousel */}

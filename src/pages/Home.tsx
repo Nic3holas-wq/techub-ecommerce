@@ -55,7 +55,7 @@ const Home:React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="bg-white text-gray-800 min-h-screen mt-10"
+      className="bg-white text-gray-800 min-h-screen mt-15 px-2"
     >
       {/* Hero Section */}
       <div className=" max-w-7xl mx-auto px-2 py-16 grid md:grid-cols-2 gap-10 items-center">
@@ -69,48 +69,45 @@ const Home:React.FC = () => {
         <div className="relative w-full shadow-md rounded-lg">
           
             <img src={redmi} alt="Tech devices" className="w-full h-auto rounded-lg" />
-    
-           
-           
         </div>
 
         </motion.div>
 
       </div>
       <div className="">
-  <p className="text-lg font-bold text-indigo-600 pb-6 text-left">New Arrivals</p>
+  <p className="text-lg font-bold text-indigo-600 pb-6 text-center">New Arrivals</p>
 
   <Carousel items={data} interval={3000}/>
   
 </div>
 
 <div className='mt-10'>
-      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600">Top Rated</h2>
+      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600 text-center">Top Rated</h2>
       <TopRated />
     </div>
 
       <div className='pt-5'>
-        <p className='text-lg font-bold text-indigo-600 pb-4 text-left'>Top Picks This Month</p>
+        <p className='text-lg font-bold text-indigo-600 pb-4 text-center'>Top Picks This Month</p>
       <TopPicks/>
       </div>
 
       <div className='mt-10'>
-      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600">Latest Smartphones</h2>
+      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600 text-center">Latest Smartphones</h2>
       <PhoneList />
     </div>
 
     <div className='mt-10'>
-      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600">Latest Laptops</h2>
+      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600 text-center">Latest Laptops</h2>
       <LaptopList />
     </div>
 
     <div className='mt-10'>
-      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600">Latest Tablets</h2>
+      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600 text-center">Latest Tablets</h2>
       <TabletList />
     </div>
 
     <div className='mt-10'>
-      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600">Recently viewed</h2>
+      <h2 className="text-xl font-bold px-4 py-2 text-indigo-600 text-center">Recently viewed</h2>
       <RecentlyViewed/>
     </div>
 

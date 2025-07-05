@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
   <AnimatePresence>
   {totalQuantity > 0 && (
     <motion.span
-      key={`cart-count-${totalQuantity}`}
+    key={`cart-count-${totalQuantity}`}
       initial={{ y: -20, opacity: 0 }}
 animate={{ y: 0, opacity: 1 }}
 exit={{ y: -20, opacity: 0 }}
@@ -68,7 +68,7 @@ transition={{ type: "spring", stiffness: 300, damping: 10 }}
             </button>
             <nav className="flex text-left mx-5 flex-col space-y-4 text-gray-700 text-lg">
               <Link to="/" onClick={() => setIsOpen(false)} className='text-2xl font-extrabold'>Tec<span className="text-indigo-600">Hub</span></Link>
-              <Link to="/" onClick={() => setIsOpen(false)}>Products</Link>
+              <Link to="/products" onClick={() => setIsOpen(false)}>Products</Link>
               <Link to="/" onClick={() => setIsOpen(false)}>Laptops</Link>
               <Link to="/" onClick={() => setIsOpen(false)}>Smartphone</Link>
             </nav>

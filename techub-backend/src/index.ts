@@ -45,6 +45,23 @@ function shuffleArray<T>(array: T[]): T[] {
     .map(({ item }) => item);
 }
 
+// 📦 GET laptops and smartphones only
+app.get("/api/products", async (req: Request, res: Response) => {
+  try {
+    const response = await axios.get<DummyJsonResponse>("https://dummyjson.com/products?limit=1000");
+    const allProducts = response.data.products;
+
+    const filtered = allProducts.filter((product) =>
+      product.category === "smartphones" || product.category === "laptops"
+    );
+
+    res.json(filtered);
+  } catch (error) {
+    console.error("Error fetching filtered products:", error);
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
 app.get("/api/search", async (req: Request, res: Response): Promise<void> => {
   const query = (req.query.q as string || '').toLowerCase();
 

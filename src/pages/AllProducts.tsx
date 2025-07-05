@@ -1,20 +1,13 @@
+
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
-//import toast from "react-hot-toast";
+import type { Product } from "../types/Product";
 
-interface Phone {
-  id: number;
-  name: string;
-  brand: string;
-  price: number;
-  image: string;
-  rating: number;
-}
 
-const PhoneList: React.FC = () => {
-  const [phones, setPhones] = useState<Phone[]>([]);
+const AllProducts: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
 
@@ -28,20 +21,20 @@ const PhoneList: React.FC = () => {
   } | null>(null);
 
   useEffect(() => {
-    fetch("http://192.168.43.102:5000/api/phones")
+    fetch("http://192.168.43.102:5000/api/products")
       .then((res) => res.json())
       .then((data) => {
-        setPhones(data);
+        setProducts(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Failed to load phones", err);
+        console.error("Failed to load products", err);
         setLoading(false);
       });
   }, []);
 
   const handleAddToCart = (
-    phone: Phone,
+    product: Product,
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     const img = (e.currentTarget.parentElement as HTMLElement).querySelector("img");
@@ -54,71 +47,64 @@ const PhoneList: React.FC = () => {
     const y = cartRect.top - imgRect.top;
 
     setFlyingImage({
-      src: phone.image,
+      src: product.images[0],
       top: imgRect.top,
       left: imgRect.left,
       x,
       y,
     });
 
-    // Call cart logic after animation starts
     setTimeout(() => {
       addToCart({
-        id: phone.id,
-        name: phone.name,
-        price: phone.price,
-        image: phone.image,
+        id: product.id,
+        name: product.title,
+        price: product.price,
+        image: product.images[0],
       });
-      //toast.success(`${phone.name} added to cart`);
     }, 700);
   };
 
-  if (loading) return <p className="text-center">Loading phones...</p>;
+  if (loading) return <p className="text-center mt-20">Loading products...</p>;
 
   return (
-    <div className="relative">
-      {/* Cart icon */}
+    <div className="relative max-w-7xl mx-auto px-4 py-10 mt-20">
       <div
         ref={cartRef}
-        className="fixed top-5 right-6 w-12 h-12 z-50"
-      >
-        
-      </div>
+        className="fixed top-5 right-6 w-12 h-12 z-50 pointer-events-none"
+      ></div>
 
-      {/* Phone list */}
-      <div className="flex gap-4 overflow-x-auto px-2 py-2">
-        {phones.map((phone) => (
+      <p className="text-2xl text-center font-bold mb-6 text-indigo-600">Products</p>
+
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {products.map((product) => (
           <div
-            key={phone.id}
-            className="w-40 bg-white flex-shrink-0 flex flex-col items-center justify-center rounded-lg shadow-lg pb-5 px-2"
+            key={product.id}
+            className="bg-white text-center rounded-lg shadow-lg p-2 flex flex-col items-center"
           >
-            <Link to={`/product/${phone.id}`} className="flex flex-col text-center">
+            <Link to={`/product/${product.id}`} className="w-full">
               <img
-                src={phone.image}
-                alt={phone.name}
-                className="w-full h-38 object-cover rounded-t-lg"
+                src={product.images[0]}
+                alt={product.title}
+                className="w-full h-40 object-cover rounded-t-md"
               />
-              <span className="text-sm text-gray-600">{phone.name}</span>
-              
-              <span className="text-indigo-900 font-bold text-lg">
-                $ {phone.price.toLocaleString()}
-              </span>
-              <span className="text-red-600 text-sm line-through">
-                $ {(phone.price * 1.1).toFixed(0)}
-              </span>
-              
-              
+              <p className="text-sm text-gray-600 truncate">{product.title}</p>
+              <p className="text-indigo-900 font-bold text-md">
+                Ksh {product.price.toLocaleString()}
+              </p>
+              <p className="text-red-600 text-sm line-through">
+                Ksh {(product.price * 1.1).toFixed(0)}
+              </p>
             </Link>
             <motion.button
-              onClick={(e) => handleAddToCart(phone, e)}
+              onClick={(e) => handleAddToCart(product, e)}
               whileTap={{ scale: 0.95 }}
               whileHover={{
                 scale: 1.05,
                 backgroundColor: "#d1d5db",
                 color: "black",
               }}
-              transition={{ bounceDamping: 10, bounceStiffness: 400 }}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg mt-2 hover:bg-indigo-700 transition"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="bg-indigo-600 text-white px-2 text-sm py-2 rounded-lg mt-2 hover:bg-indigo-700 transition"
             >
               Add to Cart
             </motion.button>
@@ -126,7 +112,6 @@ const PhoneList: React.FC = () => {
         ))}
       </div>
 
-      {/* Flying animation */}
       {flyingImage && (
         <motion.img
           src={flyingImage.src}
@@ -151,4 +136,4 @@ const PhoneList: React.FC = () => {
   );
 };
 
-export default PhoneList;
+export default AllProducts;

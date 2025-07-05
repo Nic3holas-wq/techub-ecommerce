@@ -23,18 +23,18 @@ const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4 max-w-3xl mx-auto mt-20">
+    <div className="p-4 max-w-3xl text-center mx-auto mt-27">
       <p className="text-2xl text-indigo-700 font-bold mb-6">🛍️ Your Cart</p>
 
       <div className="space-y-4">
         {cart.map((item) => (
-          <div key={item.id} className="flex items-center gap-4 bg-white p-4 rounded shadow">
+          <div key={item.id} className="flex items-center gap-17 bg-white p-4 rounded shadow">
             <Link to={`/product/${item.id}`}>
             <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded" />
             <div className="flex text-left flex-col">
               <span className="text-sm font-semibold">{item.name}</span>
-              <span className="text-gray-600 text-sm">Ksh {item.price.toLocaleString()} x {item.quantity}</span>
-              <span className="text-sm text-gray-500">Total: Ksh {(item.price * item.quantity).toLocaleString()}</span>
+              <span className="text-gray-600 text-sm">$ {item.price.toLocaleString()} x {item.quantity}</span>
+              <span className="text-sm text-gray-500">Total: $ {(item.price * item.quantity).toLocaleString()}</span>
             </div>
             </Link>
             <button
@@ -48,13 +48,13 @@ const CartPage: React.FC = () => {
       </div>
 
       <div className="mt-6 border-t pt-4">
-        <h3 className="text-xl font-bold text-indigo-500"><span className="text-black">Grand Total:</span> Ksh {total.toLocaleString()}</h3>
+        <h3 className="text-xl font-bold text-indigo-500"><span className="text-black">Grand Total:</span> $ {total.toLocaleString()}</h3>
         <div className="flex justify-between mt-4 gap-3">
           <button
             onClick={clearCart}
-            className="bg-red-500 flex flex-row items-center w-27 px-1 text-white rounded-lg hover:bg-red-600"
+            className="bg-red-500 flex flex-row justify-center items-center w-27 px-1 text-white rounded-lg hover:bg-red-600"
           >
-            <HiTrash className="text-white-500" size={25} />
+            <HiTrash className="text-white-500" size={20} />
             <span className="text-sm">Clear Cart</span>
           </button>
           <button

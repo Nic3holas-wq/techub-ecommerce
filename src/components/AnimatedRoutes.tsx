@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import Home from '../pages/Home'
 import ProductPage from '../pages/ProductPage'
 import CartPage from '../pages/CartPage'
+import AllProducts from '../pages/AllProducts'
 
 
 
@@ -15,6 +16,7 @@ const AnimatedRoutes:React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/products" element={<AllProducts/>} />
     </Routes>
     </AnimatePresence>
     
