@@ -98,12 +98,12 @@ const PhoneList: React.FC = () => {
                 alt={phone.name}
                 className="w-full h-38 object-cover rounded-t-lg"
               />
-              <span className="text-sm text-gray-600">{phone.name}</span>
+              <p className="text-sm text-gray-600">{phone.name}</p>
               <span className="text-indigo-900 font-bold text-lg">
-                Ksh {phone.price.toLocaleString()}
+              $ {phone.price.toLocaleString()}
               </span>
               <span className="text-red-600 text-sm line-through">
-                Ksh {(phone.price * 1.1).toFixed(0)}
+                $ {(phone.price * 1.1).toFixed(0)}
               </span>
             </Link>
             <motion.button
