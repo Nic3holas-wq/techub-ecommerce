@@ -1,12 +1,14 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import axios from "axios";
-
+import authRoutes from "./routes/auth";
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 
+//apis
+app.use("/api", authRoutes);
 interface Product {
   id: number;
   title: string;
@@ -45,7 +47,7 @@ function shuffleArray<T>(array: T[]): T[] {
     .map(({ item }) => item);
 }
 
-// 📦 GET laptops and smartphones only
+// GET laptops and smartphones only
 app.get("/api/products", async (req: Request, res: Response) => {
   try {
     const response = await axios.get<DummyJsonResponse>("https://dummyjson.com/products?limit=1000");
@@ -219,29 +221,6 @@ app.get("/api/all-products", async (_req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch all products" });
   }
 });
-
-
-
-// const phoneHandler = async (req: Request, res: Response): Promise<void> => {
-//     try {
-//       const { id } = req.params;
-//       const response = await axios.get<Product>(`https://dummyjson.com/products/${id}`);
-//       const product = response.data;
-  
-//       if (product.category !== "smartphones") {
-//         return res.status(404).json({ error: "Phone not found" });
-//       }
-  
-//       res.json(transformProduct(product));
-//     } catch (error) {
-//       console.error("Error fetching phone by ID:", error);
-//       res.status(500).json({ error: "Failed to fetch phone" });
-//     }
-//   };
-  
-//   app.get("/api/phones/:id", phoneHandler);
-  
-  
 
 
 app.listen(PORT, () => {
