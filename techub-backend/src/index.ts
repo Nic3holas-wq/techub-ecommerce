@@ -2,11 +2,11 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import axios from "axios";
 import authRoutes from "./routes/auth";
+
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
-
 //apis
 app.use("/api", authRoutes);
 interface Product {

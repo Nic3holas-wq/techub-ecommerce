@@ -1,16 +1,16 @@
-import { Router, Request, Response } from "express";
+import express,{Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import pool from "../db"; // Your PostgreSQL connection
+import pool from "../db";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const router = Router();
+const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
 
 // Signup Route
-router.post("/signup", async (req: Request, res: Response) => {
+router.post("/signup", async (req: Request, res: Response)=> {
   try {
     const { name, email, phonenumber, password } = req.body;
 
@@ -36,7 +36,7 @@ router.post("/signup", async (req: Request, res: Response) => {
 });
 
 // Signin Route
-router.post("/signin", async (req: Request, res: Response) => {
+router.post('/signin', async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
   
