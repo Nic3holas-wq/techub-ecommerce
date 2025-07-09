@@ -5,6 +5,7 @@ import Navbar from './components/NavBar'
 import { Toaster } from "react-hot-toast";
 import Footer from './components/Footer';
 function App() {
+  
 
   return (
     <>
